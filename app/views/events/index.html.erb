@@ -1,4 +1,14 @@
 <h1>Private Event</h1>
 
-<p>Normally a list of all events would go here. For now, you can visit your profile:</p>
-<%= link_to "#{current_user.username}", user_path(@user) %>
+<% if user_signed_in? %>
+    <%= link_to "#{current_user.username}", user_path(current_user) %><br />
+    <%= link_to "New Event", new_event_path%>
+<% else %>
+    <%= link_to "Sign In", new_user_session_path %><br />
+    <%= link_to "Sign Up", new_user_registration_path %>
+<% end %>
+
+<% @events.each do |event| %>
+    <hr>
+    <%= link_to "#{event.title}", event %>
+<% end %>

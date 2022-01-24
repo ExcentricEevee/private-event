@@ -1,3 +1,5 @@
 <h3><%= current_user.username %>'s Profile </h3>
 
-Events go here
+<% @events.each do |event| %>
+    <%= link_to "#{event.title}", event %>
+<% end%>
