@@ -3,6 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-        
-  has_many :created_events, foreign_key: "creator_id", class_name: "Event"
+  
+  #one-to-many
+  has_many :created_events, foreign_key: :creator_id, class_name: "Event"
+  #many-to-many attendees with events, using a through table called event_attendees
+  #this line establishes what the foregin key for an attendee is in the event_attendees through table
+  has_many :event_attendees, foreign_key: :event_attendee_id
+  #
+  has_many :attended_events, through: :event_attendees, source: :attended_event
 end

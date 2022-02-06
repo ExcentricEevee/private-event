@@ -1,8 +1,10 @@
 <h1><%= @event.title %></h1>
-<h4>Creator: <%= @event.creator.username %></h4>
+<h4>Creator: <%= link_to "#{@event.creator.username}", user_path(@event.creator) %></h4>
 
 <p>Time: <%= @event.date %></p>
 <p>Place: <%= @event.location %></p>
 <p><%= @event.description %></p>
 
-<%= link_to "Back", root_path %>
+<!-- WIP: make an event_attendee view for attendence joining, or just make a fancy button? Maybe start by just making it work, then do fancy stuff later -->
+<%= link_to "Attend", "/event_attendees", method: :post, {confirm: "Do you want to attend this event?"} %>
+<%= link_to "Back", :back %>

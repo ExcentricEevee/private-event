@@ -8,6 +8,7 @@
     <%= link_to "Sign Up", new_user_registration_path %>
 <% end %>
 
+<h4>Event List:</h4>
 <% @events.each do |event| %>
     <hr>
     <%= link_to "#{event.title}", event %>
