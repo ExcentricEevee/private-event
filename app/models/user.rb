@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   #one-to-many
-  has_many :created_events, foreign_key: :creator_id, class_name: "Event"
+  has_many :events, foreign_key: :creator_id, class_name: "Event"
   #many-to-many attendees with events, using a through table called event_attendees
   #this line establishes what the foregin key for an attendee is in the event_attendees through table
   has_many :event_attendees, foreign_key: :event_attendee_id

@@ -6,5 +6,5 @@
 <p><%= @event.description %></p>
 
 <!-- WIP: make an event_attendee view for attendence joining, or just make a fancy button? Maybe start by just making it work, then do fancy stuff later -->
-<%= link_to "Attend", "/event_attendees", method: :post, {confirm: "Do you want to attend this event?"} %>
+<%= link_to "Attend", "/event_attendees", method: :post, data: {confirm: "Do you want to attend this event?"} %>
 <%= link_to "Back", :back %>

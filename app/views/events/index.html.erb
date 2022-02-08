@@ -1,7 +1,10 @@
 <h1>Private Event</h1>
 
 <% if user_signed_in? %>
-    <%= link_to "#{current_user.username}", user_path(current_user) %><br />
+    <%= link_to "#{current_user.username}", user_path(current_user) %>
+    (<%= link_to "Sign Out", destroy_user_session_path, 
+                            method: :delete, 
+                            data: { confirm: "Sign out?" } %>)<br />
     <%= link_to "New Event", new_event_path%>
 <% else %>
     <%= link_to "Sign In", new_user_session_path %><br />
@@ -10,6 +13,5 @@
 
 <h4>Event List:</h4>
 <% @events.each do |event| %>
-    <hr>
-    <%= link_to "#{event.title}", event %>
+    <%= link_to "#{event.title}", event %><br />
 <% end %>
