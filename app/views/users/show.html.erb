@@ -1,8 +1,15 @@
 <h3><%= @user.username %>'s Profile </h3>
 
-<% @events.each do |event| %>
+<% @user.events.each do |event| %>
     <%= link_to "#{event.title}", event %><br />
 <% end%>
 <br />
 
 <%= link_to "Back", root_path %>
+
+<hr>
+<p>Attending these events:</p>
+<% @events_attended.each do |ea| %>
+    <% event = Event.find(ea.attended_event_id) %>
+    <%= link_to "#{event.title}", event %>
+<% end %>
