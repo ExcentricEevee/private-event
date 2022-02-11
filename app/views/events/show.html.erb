@@ -5,7 +5,7 @@
 <p>Place: <%= @event.location %></p>
 <p><%= @event.description %></p>
 
-<!-- WIP: make an event_attendee view for attendence joining, or just make a fancy button? Maybe start by just making it work, then do fancy stuff later -->
+<!-- Note: using path helpers allows you to pass params to the controller/method being called -->
 <%= link_to "Attend", event_attendees_path(event_id: @event.id), method: :post, data: {confirm: "Do you want to attend this event?"} %>
 <%= link_to "Back", :back %>
 
@@ -14,5 +14,5 @@
 <p>Attendees:</p>
 <% @event_attendees.each do |ea| %>
     <% attendee = User.find(ea.event_attendee_id) %>
-    <%= link_to "#{attendee.username}", attendee %>
+    <%= link_to "#{attendee.username}", attendee %><br />
 <% end %>
