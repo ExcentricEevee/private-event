@@ -7,12 +7,14 @@
 
 <!-- Note: using path helpers allows you to pass params to the controller/method being called -->
 <%= link_to "Attend", event_attendees_path(event_id: @event.id), method: :post, data: {confirm: "Do you want to attend this event?"} %>
-<%= link_to "Back", :back %>
+<%= link_to "Back", root_path %>
 
 <hr>
 
 <p>Attendees:</p>
-<% @event_attendees.each do |ea| %>
-    <% attendee = User.find(ea.event_attendee_id) %>
-    <%= link_to "#{attendee.username}", attendee %><br />
-<% end %>
+<ul>
+    <% @event_attendees.each do |ea| %>
+        <% attendee = User.find(ea.event_attendee_id) %>
+        <li><%= link_to "#{attendee.username}", attendee %></li>
+    <% end %>
+</ul>

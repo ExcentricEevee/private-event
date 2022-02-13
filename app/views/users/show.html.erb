@@ -1,15 +1,36 @@
 <h3><%= @user.username %>'s Profile </h3>
 
-<% @user.events.each do |event| %>
-    <%= link_to "#{event.title}", event %><br />
-<% end%>
-<br />
-
-<%= link_to "Back", root_path %>
+<h5>Hosting:</h5>
+<ul>
+    <% @user.events.each do |event| %>
+        <li><%= link_to "#{event.title}", event %></li>
+    <% end %>
+</ul>
 
 <hr>
-<p>Attending these events:</p>
-<% @events_attended.each do |ea| %>
-    <% event = Event.find(ea.attended_event_id) %>
-    <%= link_to "#{event.title}", event %>
-<% end %>
+
+<!-- try using @user.attended_events or some such instead -->
+<!-- in rails console @user.attended_events displays events diretly, but @event.event_attendees just gives a list of EventAttendees entries. Hm. -->
+<h6>Attending upcoming events:</h6>
+<ul>
+    <% @events_attended.each do |ea| %>
+        <% event = Event.find(ea.attended_event_id) %>
+        <% if event.date > Time.now %>
+            <li><%= link_to "#{event.title}", event %></li>
+        <% end %>
+    <% end %>
+</ul>
+
+<hr>
+
+<h6>Past Events Attended:</h6>
+<ul>
+    <% @events_attended.each do |ea| %>
+        <% event = Event.find(ea.attended_event_id) %>
+        <% if event.date < Time.now %>
+            <li><%= link_to "#{event.title}", event %></li>
+        <% end %>
+    <% end %>
+</ul>
+
+<%= link_to "Back", root_path %>
