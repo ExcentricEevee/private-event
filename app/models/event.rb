@@ -5,4 +5,7 @@ class Event < ApplicationRecord
     has_many :attendees, through: :event_attendees, source: :event_attendee
     #this establishes 
     has_many :event_attendees, foreign_key: :attended_event_id
+
+    scope :past, -> { where('date < ?', Time.now) }
+    scope :upcoming, -> { where('date > ?', Time.now) }
 end

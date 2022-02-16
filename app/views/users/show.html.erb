@@ -2,22 +2,23 @@
 
 <h5>Hosting:</h5>
 <ul>
-    <% @user.events.each do |event| %>
-        <li><%= link_to "#{event.title}", event %></li>
+    <% if @user.events.size == 0 %>
+        <p>This user has no events.</p>
+    <% else %>
+        <% @user.events.each do |event| %>
+            <li><%= link_to "#{event.title}", event %></li>
+        <% end %>
     <% end %>
 </ul>
 
 <hr>
 
-<!-- try using @user.attended_events or some such instead -->
-<!-- in rails console @user.attended_events displays events diretly, but @event.event_attendees just gives a list of EventAttendees entries. Hm. -->
+
 <h6>Attending upcoming events:</h6>
 <ul>
-    <% @events_attended.each do |ea| %>
-        <% event = Event.find(ea.attended_event_id) %>
-        <% if event.date > Time.now %>
-            <li><%= link_to "#{event.title}", event %></li>
-        <% end %>
+    <!-- You can use queries instead of relying on if-statements! -->
+    <% @user.attended_events.where('date > ?', Time.now).each do |event| %>
+        <li><%= link_to "#{event.title}", event %></li>
     <% end %>
 </ul>
 
@@ -25,11 +26,8 @@
 
 <h6>Past Events Attended:</h6>
 <ul>
-    <% @events_attended.each do |ea| %>
-        <% event = Event.find(ea.attended_event_id) %>
-        <% if event.date < Time.now %>
-            <li><%= link_to "#{event.title}", event %></li>
-        <% end %>
+    <% @user.attended_events.where('date < ?', Time.now).each do |event| %>
+        <li><%= link_to "#{event.title}", event %></li>
     <% end %>
 </ul>
 
