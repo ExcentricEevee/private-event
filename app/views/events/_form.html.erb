@@ -1,12 +1,21 @@
-<%= form_with model: @event do |form| %>
+<%= form_with model: event do |form| %>
     <%= form.label :title %><br />
     <%= form.text_field :title %><br /><br />
+    <% event.errors.full_messages_for(:title).each do |message| %>
+        <div><%= message %></div>
+    <% end %>
 
     <%= form.label :location %><br />
     <%= form.text_field :location %><br /><br />
+    <% event.errors.full_messages_for(:location).each do |message| %>
+        <div><%= message %></div>
+    <% end %>
 
     <%= form.label :date %><br />
     <%= form.text_field :date, placeholder: "dd/mm/yyyy" %><br /><br />
+    <% event.errors.full_messages_for(:date).each do |message| %>
+        <div><%= message %></div>
+    <% end %>
 
     <%= form.label :description %><br />
     <%= form.text_area :description, placeholder: "Tell us a bit about your event." %><br /><br />

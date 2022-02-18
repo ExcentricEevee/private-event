@@ -3,9 +3,13 @@ class Event < ApplicationRecord
     #many-to-many attendees with events, using a through table called event_attendees
     #this line establishes how an event can have many attendees (Users) with the through table event_attendees
     has_many :attendees, through: :event_attendees, source: :event_attendee
-    #this establishes 
     has_many :event_attendees, foreign_key: :attended_event_id
 
     scope :past, -> { where('date < ?', Time.now) }
     scope :upcoming, -> { where('date > ?', Time.now) }
+ 
+    validates :creator_id, presence: true
+    validates :title, presence: true, length: { in: 1..50}
+    validates :location, presence: true, length: { in:  1..100}
+    validates_date :date
 end

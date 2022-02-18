@@ -9,6 +9,7 @@ class User < ApplicationRecord
   #many-to-many attendees with events, using a through table called event_attendees
   #this line establishes what the foregin key for an attendee is in the event_attendees through table
   has_many :event_attendees, foreign_key: :event_attendee_id
-  #
   has_many :attended_events, through: :event_attendees, source: :attended_event
+
+  validates :username, presence: true, length: { minimum: 2 }
 end
