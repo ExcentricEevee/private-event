@@ -9,6 +9,9 @@
 <%= link_to "Attend", event_attendees_path(event_id: @event.id), method: :post, data: {confirm: "Do you want to attend this event?"} %>
 <% if current_user.id == @event.creator_id %>
     <%= link_to "Edit", edit_event_path(@event) %>
+    <%= link_to "Delete", event_path(@event), 
+                            method: :delete, 
+                            data: { confirm: "You're really sure you want to delete your event?" } %>
 <% end %>
 <%= link_to "Back", root_path %>
 

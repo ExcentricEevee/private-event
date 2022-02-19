@@ -12,7 +12,7 @@
     <% end %>
 
     <%= form.label :date %><br />
-    <%= form.text_field :date, placeholder: "dd/mm/yyyy" %><br /><br />
+    <%= form.text_field :date, placeholder: "dd/mm/yyyy hh:mm" %><br /><br />
     <% event.errors.full_messages_for(:date).each do |message| %>
         <div><%= message %></div>
     <% end %>
