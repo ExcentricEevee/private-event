@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-    before_action :authenticate_user!, only: [:new, :create]
+    before_action :authenticate_user!, except: [:index, :show]
 
     def index
         @events = Event.all
@@ -22,6 +22,28 @@ class EventsController < ApplicationController
         else
             render :new
         end
+    end
+
+    def edit
+        @event = Event.find(params[:id])
+        if current_user.id != @event.creator_id
+            #surely there is a better way
+            redirect_to @event, notice: "You can't do that! 3:"
+        end
+    end
+
+    def update
+        @event = Event.find(params[:id])
+
+        if @event.update(event_params)
+            redirect_to @event
+        else
+            render :edit
+        end
+    end
+
+    def destroy
+
     end
     
     private

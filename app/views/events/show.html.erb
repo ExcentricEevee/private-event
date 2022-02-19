@@ -7,6 +7,9 @@
 
 <!-- Note: using path helpers allows you to pass params to the controller/method being called -->
 <%= link_to "Attend", event_attendees_path(event_id: @event.id), method: :post, data: {confirm: "Do you want to attend this event?"} %>
+<% if current_user.id == @event.creator_id %>
+    <%= link_to "Edit", edit_event_path(@event) %>
+<% end %>
 <%= link_to "Back", root_path %>
 
 <hr>
