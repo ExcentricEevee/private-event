@@ -1,9 +1,10 @@
 class Event < ApplicationRecord
     belongs_to :creator, class_name: "User"
-    #many-to-many attendees with events, using a through table called event_attendees
-    #this line establishes how an event can have many attendees (Users) with the through table event_attendees
+    #this line establishes how an event can have many attendees (Users) with the through table EventAttendee
+    #source is saying "find the attendee in EventAttendee with :event_attendee_id, not user_id or w/e"
     has_many :attendees, through: :event_attendees, source: :event_attendee
-    has_many :event_attendees, foreign_key: :attended_event_id
+    #this line establishes how it can have many instances of EventAttendee
+    has_many :event_attendees, foreign_key: :attended_event_id, dependent: :delete_all
 
     scope :past, -> { where('date < ?', Time.now) }
     scope :upcoming, -> { where('date > ?', Time.now) }
