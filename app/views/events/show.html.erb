@@ -6,12 +6,15 @@
 <p><%= @event.description %></p>
 
 <!-- Note: using path helpers allows you to pass params to the controller/method being called -->
-<%= link_to "Attend", event_attendees_path(event_id: @event.id), method: :post, data: {confirm: "Do you want to attend this event?"} %>
-<% if current_user.id == @event.creator_id %>
-    <%= link_to "Edit", edit_event_path(@event) %>
-    <%= link_to "Delete", event_path(@event), 
-                            method: :delete, 
-                            data: { confirm: "You're really sure you want to delete your event?" } %>
+<% if user_signed_in? %>
+    <%= link_to "Attend", event_attendees_path(event_id: @event.id), method: :post, data: { confirm: "Do you want to attend this event?" } %>
+    <%= link_to "Unattend", event_attendee_path(event_id: @event.id), method: :delete, data: { confirm: "You want to leave this event?" } %>
+    <% if current_user.id == @event.creator_id %>
+        <%= link_to "Edit", edit_event_path(@event) %>
+        <%= link_to "Delete", event_path(@event), 
+                                method: :delete, 
+                                data: { confirm: "You're really sure you want to delete your event?" } %>
+    <% end %>
 <% end %>
 <%= link_to "Back", root_path %>
 

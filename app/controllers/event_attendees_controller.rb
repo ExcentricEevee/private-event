@@ -12,4 +12,12 @@ class EventAttendeesController < ApplicationController
             redirect_to @event, notice: "You are now attending this event!"
         end
     end
+
+    def destroy
+        @event = Event.find(params[:event_id])
+        @event_attendee = EventAttendee.find_by(event_attendee_id: current_user.id, attended_event_id: @event.id)
+        @event_attendee.destroy
+
+        redirect_to @event, notice: "You have left this event"
+    end
 end
